@@ -1,0 +1,16 @@
+#try:
+ #   number = int(input("Enter a number: "))
+  #  print(10 / number)
+#except ValueError:
+ #   print("That's not a valid number.")
+#except ZeroDivisionError:
+ #   print("You can't divide by zero")
+
+#try:
+  #  number = int(input("Enter you age:"))
+#except ValueError:
+ #   print("Please enter a valid number")
+#else:
+ #   print("your age is: ", number)
+
+
