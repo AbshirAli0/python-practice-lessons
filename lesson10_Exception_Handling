@@ -30,3 +30,77 @@
 
 #Why shouldn’t you use a single except Exception: for everything?
 # we shouldn't use except Exception: for everything as it would hide unexpected bugs, which causes the code to run in a broken state. by using specific error handling exceptions, the debugging process is easier as you could target what is causing the code to fail.
+
+#part 2 - coding exercises
+
+
+# safe division
+
+def operation():
+
+    try:
+        a = float(input("Enter your first number: "))
+        b = float(input("Enter your second number: "))
+        print("result: ", a / b )
+    except ZeroDivisionError:
+        print("Error: Cannot divide by zero.")
+    except ValueError:
+        print("Error: Please enter valid numbers.")
+    finally:
+        print("operation Complete")
+
+operation()
+#- custom exception
+
+def withdraw(balance, amount):
+    if amount > balance:
+        raise ValueError("insufficient funds")
+    return balance - amount
+
+try:
+    newbalance = withdraw(100, 150)
+    print("your new balance: ", newbalance)
+except ValueError as e:
+    print("error: ", e)
+
+# file reader with finally
+
+def fileReader():
+    filename = input("please provide filename: ")
+    try:
+        with open(filename, 'r') as file:
+         found_file = file.read()
+         print("We found your file: ", found_file)
+    except FileNotFoundError:
+        print("There was an error while searching for file")
+    finally:
+     print("exiting program")
+
+fileReader()
+
+
+# challenge: safe calculator
+
+def calculator():
+    try:
+        operation = input("Select operation (add,sub,mul,div):   ").lower()
+        a = float(input("Enter your first number:    "))
+        b = float(input("Enter your second number:   "))
+        if operation == "add":
+          print("Result:   ", a + b)
+        elif operation == "sub":
+            print("Result:  ", a - b)
+        elif operation == "mul":
+            print("Result:  ", a * b)
+        elif operation == "div":
+            print("Result:  ", a / b)
+        else:
+            print("Error: invalid operation selected")
+    except ValueError:
+        print("Error: Please enter valid numbers.")
+    except ZeroDivisionError:
+        print("Error: Cannot divide by zero.")
+    finally:
+        print("Calculation attempt finished")
+
+calculator()
