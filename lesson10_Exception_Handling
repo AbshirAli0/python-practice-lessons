@@ -14,4 +14,19 @@
  #   print("your age is: ", number)
 
 
-#homework
+#homework 
+#part 1  - short questions
+# What is an exception in Python?
+# an exception is an error that occurs while a program is running and can be handled using exception handling
+
+# What does a try / except block do?
+# the try/except block in python is statement that tries to run code in a program and handles exceptions that could otherwise break the program
+
+# What is the purpose of the finally block?
+# The finally block is the code that runs no matter what happens in the try and exception blocks. it can be used to clean up resources or finalize ops, even if an error occurs
+
+#How is raise used in Python?
+# raised can be used to trigger an exception, either built-in and custon exceptions created by programmer
+
+#Why shouldn’t you use a single except Exception: for everything?
+# we shouldn't use except Exception: for everything as it would hide unexpected bugs, which causes the code to run in a broken state. by using specific error handling exceptions, the debugging process is easier as you could target what is causing the code to fail.
