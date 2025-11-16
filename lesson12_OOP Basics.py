@@ -53,3 +53,80 @@ for shape in shapes:
 
 # What is the role of the super() function in Python classes?
 # the super() function is one that allows the child class to access and call methods from the parent class, which makes code more reusable and allows method to extend beyond superclass.
+
+#Part 2 - Coding Practice
+# task 1 & 2 - Create a Simple Class and add Behavior
+
+class Book:
+    def __init__(self, title, author, pages, checked_out = False):
+        self.title = title
+        self.author = author
+        self.pages = pages
+        self.checked_out = checked_out
+    
+    def book_info(self):
+        print(f"{self.title} by {self.author} has {self.pages} ")
+    
+    def check_out(self):
+        self.checked_out = True
+        print("It has been checked out.")
+
+    def return_book(self):
+        self.checked_out = False
+        print("It's available now.")
+
+    def status(self):
+        if self.checked_out:
+            print("checked out")
+        else:
+            print("avaialble")
+
+
+book1 = Book("Harry Potter", "J.K Rowling", 350)
+book1.book_info()
+book1.status()
+book1.check_out()
+book1.status()
+book1.return_book()
+book1.status()
+
+#task 3 and 4: inheritance & Polymorphism
+
+class Vehicle:
+    def __init__(self, brand, model):
+        self.brand = brand
+        self.model = model
+    
+    def descibe(self):
+        print(f"This is a {self.brand} {self.model}")
+    
+class Car(Vehicle):
+    def __init__(self, brand, model, doors):
+        super().__init__(brand, model)
+        self.doors = doors
+
+    def descibe(self):
+        print(f"This is a {self.brand} {self.model} with {self.doors} doors.")
+    
+class Motorcycle(Vehicle):
+    def __init__(self,brand, model, cc):
+        super().__init__(brand, model)
+        self.cc = cc
+    
+    def descibe(self):
+        print(f"This is a {self.brand} {self.model} with {self.cc} cc engine.")
+
+
+
+car1 = Car("Honda", "Civic", 4)
+bike1 = Motorcycle("Yamaha", "R1", 1000)
+
+def show_vehicle_info(vehicles):
+    for vehicle in vehicles:
+        vehicle.descibe()
+    
+
+
+car1.descibe()
+bike1.descibe()
+show_vehicle_info([car1, bike1])
