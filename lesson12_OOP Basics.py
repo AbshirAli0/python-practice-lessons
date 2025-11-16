@@ -130,3 +130,76 @@ def show_vehicle_info(vehicles):
 car1.descibe()
 bike1.descibe()
 show_vehicle_info([car1, bike1])
+
+#Part 3 - OOP Simulation - Pet Adoption Center
+
+
+class Pet:
+    def __init__(self, name, age, species):
+        self.name = name
+        self.age = age
+        self.species = species
+    
+    def speak(self):
+        print("...")
+    
+    def info(self):
+        print(f"Name: {self.name} Age: {self.age}, Species: {self.species} ")
+
+class Dog(Pet):
+    def __init__(self, name, age, species):
+        super().__init__(name, age, species)
+    
+    def speak(self):
+        print("woof")
+
+class Cat(Pet):
+    def __init__(self, name, age, species):
+        super().__init__(name, age, species)
+    
+    def speak(self):
+        print("Meow")
+
+
+class Bird(Pet):
+    def __init__(self, name, age, species):
+        super().__init__(name, age, species)
+    
+    def speak(self):
+        print("Chirp")
+
+class AdoptionCenter:
+    def __init__(self, pets):
+        self.pets = pets
+
+    def add_pet(self, pet):
+        self.pets.append(pet)
+    
+    def show_pets(self):
+        for pet in self.pets:
+            print(f"Name: {pet.name}, Age: {pet.age}, Species: {pet.species}")
+            pet.speak()
+    
+    def adopt(self, name):
+        for pet in self.pets:
+            if pet.name == name:
+                self.pets.remove(pet)
+                print(f"Congratulations! You adopted {pet.name}")
+
+    
+    
+center = AdoptionCenter([])
+
+dog1 = Dog("Buddy", 3,"Dog")
+cat1 = Cat("Whiskers", 2, "Cat")
+bird1 = Bird("Tweety", 1, "Bird")
+
+
+center.add_pet(dog1)
+center.add_pet(cat1)
+center.add_pet(bird1)
+
+center.show_pets()
+
+center.adopt("Whiskers")
+center.show_pets()
