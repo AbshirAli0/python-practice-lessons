@@ -44,6 +44,7 @@ except (FileNotFoundError, json.JSONDecodeError):
     contacts = []
 
 # add CRUD Function
+contacts = []
 
 def add_contacts(contacts, name, phone, tags):
     contacts.append({
@@ -118,4 +119,45 @@ for c in contacts:
 with open("contacts.json", "w") as f:
     json.dump(json_ready, f, indent = 100)
 
-print(json_ready)
+
+# 2nd Quesiton - Grocery List Manager
+
+# Basic Crud
+groceries = [ {
+            "name": "cereal", 
+            "price": 3.50, 
+            "B/L/D?": 
+            "Breakfast"
+                }
+             ]
+          
+             
+#create
+groceries.append( {"name": "burgers", "price": 4.0, "B/L/D?": "lunch"})
+groceries.append( {"name": "pasta", "price": 2.0, "B/L/D?": "Dinner"})
+
+#update
+for g in groceries:
+    if g["price"] == 4.0:
+        g["price"] = 2.5 
+
+
+
+#delete
+
+groceries = [g for g in groceries if g["name"] != "pasta"]
+#read
+
+console = Console()
+table = Table(title = "Groceries list")
+
+table.add_column("name", style="cyan")
+table.add_column("price", style="magenta")
+table.add_column("B/L/D?", style="green")
+
+for g in groceries:
+    table.add_row(g["name"], str(g["price"]), g["B/L/D?"])
+
+console.print(table)
+
+# Reusable crud
