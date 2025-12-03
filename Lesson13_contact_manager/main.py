@@ -104,8 +104,6 @@ contacts = del_contacts(contacts, "Sarah")
 read_contacts(contacts)
 
 
-
-
 # Save contacts
 
 json_ready = []
@@ -126,19 +124,18 @@ with open("contacts.json", "w") as f:
 groceries = [ {
             "name": "cereal", 
             "price": 3.50, 
-            "B/L/D?": 
-            "Breakfast"
+            "meal": "Breakfast"
                 }
              ]
           
              
 #create
-groceries.append( {"name": "burgers", "price": 4.0, "B/L/D?": "lunch"})
-groceries.append( {"name": "pasta", "price": 2.0, "B/L/D?": "Dinner"})
+groceries.append( {"name": "burgers", "price": 4.0, "meal": "lunch"})
+groceries.append( {"name": "pasta", "price": 2.0, "meal": "Dinner"})
 
 #update
 for g in groceries:
-    if g["price"] == 4.0:
+    if g["name"] == "burgers":
         g["price"] = 2.5 
 
 
@@ -146,6 +143,7 @@ for g in groceries:
 #delete
 
 groceries = [g for g in groceries if g["name"] != "pasta"]
+
 #read
 
 console = Console()
@@ -153,11 +151,60 @@ table = Table(title = "Groceries list")
 
 table.add_column("name", style="cyan")
 table.add_column("price", style="magenta")
-table.add_column("B/L/D?", style="green")
+table.add_column("meal", style="green")
 
 for g in groceries:
-    table.add_row(g["name"], str(g["price"]), g["B/L/D?"])
+    table.add_row(g["name"], str(g["price"]), g["meal"])
 
-console.print(table)
+#console.print(table)
 
 # Reusable crud
+
+#create
+
+def add_groceries(groceries, name, price, meal):
+    groceries.append({
+        "name": name,
+        "price": price,
+        "meal": meal
+    })
+
+#Update
+
+def update_groceries(groceries, old_name, new_name = None, new_price = None, new_meal = None):
+    for g in groceries:
+        if g["name"] == old_name:
+            if new_name:
+                g["name"] = new_name
+            if new_price is not None:
+                g["price"] = new_price
+            if new_meal:
+                g["meal"] = new_meal
+            return 
+        
+
+# delete
+def del_groceries(groceries, name):
+    return [g for g in groceries if g["name"] != name ]
+
+    
+def read_groceries(groceries) :
+
+    console = Console()
+    table = Table(title = "REUSABLE Groceries list")
+
+    table.add_column("name", style="cyan")
+    table.add_column("price", style="magenta")
+    table.add_column("meal", style="green")
+
+    for g in groceries:
+        table.add_row(g["name"], str(g["price"]), g["meal"])
+
+    console.print(table)
+
+    
+add_groceries(groceries, "Fish", 3.00, "Dinner")
+update_groceries(groceries, "Fish", new_name = "Salmon", new_price=2.25, new_meal="Lunch")
+update_groceries(groceries, "cereal", new_price=2.20)
+groceries = del_groceries(groceries, "burgers")
+read_groceries(groceries)
