@@ -208,3 +208,132 @@ update_groceries(groceries, "Fish", new_name = "Salmon", new_price=2.25, new_mea
 update_groceries(groceries, "cereal", new_price=2.20)
 groceries = del_groceries(groceries, "burgers")
 read_groceries(groceries)
+
+
+class User:
+    def __init__(self, username, email, balance = 0):
+        self.username = username
+        self.email = email
+        self.balance = balance
+    
+    def deposit(self, amount):
+        if amount <= 0:
+            raise ValueError("Deposit amount must be positive")
+        self.balance += amount
+
+    def purchase(self, amount):
+        if amount < 0:
+            raise ValueError("Incorrect Value. Price must be positive")
+        if amount > self.balance:
+            raise ValueError("insufficient funds")
+
+        self.balance -= amount 
+    
+from django.http import JsonResponse
+import json 
+
+class Wallet:
+    def __init__(self, owner_id, balance = 0, is_frozen = False):
+        self.owner_id = owner_id
+        self.balance = balance
+        self.is_frozen = is_frozen
+
+    def deposit(self, amount):
+
+        if self.is_frozen:
+            raise ValueError("Your account is Frozen")
+
+        if amount <= 0:
+            raise ValueError("Incorrect value. Price must be a positive")
+        
+
+        self.balance += amount
+    
+    def spend(self, amount):
+
+          
+        if self.is_frozen:
+            raise ValueError("Your account is Frozen")
+
+        if amount <= 0:
+            raise ValueError("Incorrect value. Price must be a positive")
+
+        if amount > self.balance:
+            raise ValueError("insufficient funds")
+        
+        self.balance -= amount
+    
+    def freeze(self):
+        self.is_frozen = True
+    
+    def unfreeze(self):
+        self.is_frozen = False
+        
+    def to_dict(self):
+        return {
+            "owner_id" :self.owner_id, 
+            "balance"  :self.balance, 
+            "is_frozen" :self.is_frozen
+        }
+    
+
+
+
+
+wallet = Wallet("ABSHIR ALI")
+wallet_json = json.dumps(wallet.to_dict())
+print(wallet.to_dict())
+print(wallet_json)
+
+
+#JSON request to depost money
+
+#POST /wallet/deposit
+#Body: {amount: 50}
+
+# return: { "balance": 95 }
+
+def deposit(request):
+    data = json.loads(request.body)
+    try:
+        wallet.deposit(data["amount"])
+        return JsonResponse(wallet.to_dict())
+    except ValueError as e:
+        return JsonResponse({"error": str(e)}, status=400)
+    
+
+
+wallet.deposit(100)
+wallet.spend(30)
+wallet.freeze()
+
+
+try:
+    wallet.deposit(49)
+except ValueError as e:
+    print(e)
+
+wallet.unfreeze()
+
+try:
+    wallet.spend(25)
+except ValueError as e:
+    print(e)
+
+print(wallet.balance)
+
+
+
+
+wallet_dict = {
+    "owner_id": "ABSHIR ALI",
+    "balance": 45,
+    "is_frozen": False
+    }
+
+wallet_json = json.dumps(wallet_dict)
+
+x = 'john'
+x= "john"
+
+my-var = 2
